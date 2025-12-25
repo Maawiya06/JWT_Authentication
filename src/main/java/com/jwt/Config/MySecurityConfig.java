@@ -1,14 +1,36 @@
 package com.jwt.Config;
 
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
-
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
-@EnableWebSecurity
 public class MySecurityConfig{
 
+    // set user nd password
+    @Bean
+    public UserDetailsService userdetailsService(){
+
+        UserDetails user = User
+                              .builder()
+                              .username("Ameer")
+                              .password(passwordEncoder().encode("abc"))
+                              .roles("Admin")
+                              .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
+
+    // password encoder
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 
 }
