@@ -21,7 +21,7 @@ public class MySecurityConfig{
                               .builder()
                               .username("Ameer")
                               .password(passwordEncoder().encode("abc"))
-                              .roles("Admin")
+                              .roles("ADMIN")
                               .build();
 
         return new InMemoryUserDetailsManager(user);
