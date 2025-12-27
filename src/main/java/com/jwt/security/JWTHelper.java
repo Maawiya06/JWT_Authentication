@@ -36,7 +36,12 @@ public class JWTHelper {
 
     //for retrieveing any information from token we will need the secret key
     private Claims getAllClaimsFromToken(String token){
-        return Jwts.parser().setSigningKey(secret).build().parseSignedClaims(token).getPayload();
+        return Jwts
+                .parser()
+                .setSigningKey(secret)
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     // check if the token has expired
@@ -56,15 +61,21 @@ public class JWTHelper {
     //2. Sign the JWT using the HS512 algorithm and secret key.
     //3. According to JWS Compact Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)
 
-    // complication of the JWT to a url-safe string
+    // complication of the JWT to a url-safe string (token creation logic)
     private String doGenerateToken(Map<String, Object> claims, String subject){
-        return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
+        return Jwts
+                .builder() // start building JWT
+                .setClaims(claims) // Adds custom data
+                .setSubject(subject) //set username
+                .setIssuedAt(new Date(System.currentTimeMillis())) // set token creation time
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000)) // set token expiry time
+                .signWith(SignatureAlgorithm.HS512, secret) //Digitally signs JWT using secret
+                .compact(); // Converts JWT to string
     }
 
+    // validate token
     public Boolean validateToken(String token, UserDetails userDetails){
-        final String username = getUserNameFromToken(token);
+        final String username = getUserNameFromToken(token); // extract username from JWT
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 }
