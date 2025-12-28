@@ -29,7 +29,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException,
                                     IOException {
-
+        // get header
+        String requestHeader = request.getHeader("Authorization");
 
     }
 }
