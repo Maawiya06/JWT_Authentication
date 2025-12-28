@@ -31,6 +31,17 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
                                     IOException {
         // get header
         String requestHeader = request.getHeader("Authorization");
+        logger.info(" Header : {}", requestHeader);
+        String username = null;
+        String token = null;
 
+
+        // logic
+        if(requestHeader != null && requestHeader.startsWith("Ameer"))
+        {
+            // looking perfect
+            token = requestHeader.substring(7);
+
+        }
     }
 }
