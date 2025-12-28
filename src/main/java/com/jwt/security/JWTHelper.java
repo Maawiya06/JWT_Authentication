@@ -51,7 +51,7 @@ public class JWTHelper {
     }
 
     // generate token for user
-    private String generateToken(UserDetails userDetails){
+    public String generateToken(UserDetails userDetails){
         Map<String, Object> claims = new HashMap<>();
         return doGenerateToken(claims, userDetails.getUsername());
     }

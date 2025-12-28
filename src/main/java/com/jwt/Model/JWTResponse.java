@@ -1,23 +1,51 @@
 package com.jwt.Model;
 
-public class JWTResponse{
+public class JWTResponse {
 
-    private String JwtToken;
+    private String jwtToken;
     private String username;
 
+    // constructors
+    public JWTResponse() {
+    }
+
     public JWTResponse(String jwtToken, String username) {
-        JwtToken = jwtToken;
+        this.jwtToken = jwtToken;
         this.username = username;
     }
 
-    public JWTResponse(){}
+    // ---------- BUILDER ----------
+    public static Builder builder() {
+        return new Builder();
+    }
 
+    public static class Builder {
+        private String jwtToken;
+        private String username;
+
+        public Builder jwtToken(String jwtToken) {
+            this.jwtToken = jwtToken;
+            return this;
+        }
+
+        public Builder username(String username) {
+            this.username = username;
+            return this;
+        }
+
+        public JWTResponse build() {
+            return new JWTResponse(jwtToken, username);
+        }
+    }
+    // ---------- BUILDER END ----------
+
+    // getters and setters
     public String getJwtToken() {
-        return JwtToken;
+        return jwtToken;
     }
 
     public void setJwtToken(String jwtToken) {
-        JwtToken = jwtToken;
+        this.jwtToken = jwtToken;
     }
 
     public String getUsername() {
@@ -31,7 +59,7 @@ public class JWTResponse{
     @Override
     public String toString() {
         return "JWTResponse{" +
-                "JwtToken='" + JwtToken + '\'' +
+                "jwtToken='" + jwtToken + '\'' +
                 ", username='" + username + '\'' +
                 '}';
     }
