@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -64,6 +66,11 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         }
 
         // Authentication code
-        if()
+        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+
+        }
+        else{
+            logger.info("Validation failed !!");
+        }
     }
 }
