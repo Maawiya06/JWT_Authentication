@@ -5,6 +5,7 @@ import com.jwt.security.JWTAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -24,7 +25,9 @@ public class SecurityConfig {
                         .authenticated()
                         .requestMatchers("/auth/login").permitAll()
                         .anyRequest()
-                        .authenticated());
+                        .authenticated())
+                .exceptionHandling(ex-> ex.authenticationEntryPoint(point))
+                .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return httpSecurity.build();
     }
