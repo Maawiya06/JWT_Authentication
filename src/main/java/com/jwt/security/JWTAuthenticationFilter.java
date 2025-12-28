@@ -88,5 +88,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         else{
             logger.info("Validation failed !!");
         }
+
+        filterChain.doFilter(request, response);
     }
 }
