@@ -40,7 +40,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         if(requestHeader != null && requestHeader.startsWith("Ameer"))
         {
             // looking perfect
-            token = requestHeader.substring(7);
+            token = requestHeader.substring(6);
 
         }
     }
