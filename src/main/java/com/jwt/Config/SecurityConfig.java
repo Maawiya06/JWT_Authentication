@@ -19,9 +19,12 @@ public class SecurityConfig {
         httpSecurity
                 .csrf(csrf-> csrf.disable())
                 .cors(cors-> cors.disable())
-                .authorizeHttpRequests(auth-> auth.requestMatchers("/home/**")
+                .authorizeHttpRequests(
+                        auth-> auth.requestMatchers("/home/**")
                         .authenticated()
-                        .requestMatchers("/auth/login").permitAll());
+                        .requestMatchers("/auth/login").permitAll()
+                        .anyRequest()
+                        .authenticated());
 
         return httpSecurity.build();
     }
