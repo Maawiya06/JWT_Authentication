@@ -1,6 +1,8 @@
 package com.jwt.security;
 
 import com.jwt.Service.UserService;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,11 +39,31 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
 
         // logic
-        if(requestHeader != null && requestHeader.startsWith("Ameer"))
-        {
+        if(requestHeader != null && requestHeader.startsWith("Ameer")) {
             // looking perfect
             token = requestHeader.substring(6);
 
+            try{
+                username = this.jwtHelper.getUserNameFromToken(token);
+            } catch (IllegalArgumentException e) {
+                logger.info("Illegal Argumenets while fetching the usename!!");
+                e.printStackTrace();
+            } catch (ExpiredJwtException e){
+                logger.info("Given jwt token is expired !!");
+                e.printStackTrace();
+            } catch (MalformedJwtException e){
+                logger.info("Some change has done in token !! Invalid token");
+                e.printStackTrace();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
         }
+        else{
+            logger.info("Invalid Header value !!");
+        }
+
+        // Authentication code
+        if()
     }
 }
