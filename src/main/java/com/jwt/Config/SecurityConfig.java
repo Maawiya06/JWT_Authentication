@@ -3,6 +3,7 @@ package com.jwt.Config;
 import com.jwt.security.JWTAuthenticationEntryPoint;
 import com.jwt.security.JWTAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,6 +18,7 @@ public class SecurityConfig {
     @Autowired
     private JWTAuthenticationFilter filter;
 
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
                 .csrf(csrf-> csrf.disable())
